@@ -79,3 +79,7 @@ class User(models.Model):
 
 # head = User.create_head()
 
+class Task(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    image = models.ImageField(upload_to='event_images/', blank=True, null=True)

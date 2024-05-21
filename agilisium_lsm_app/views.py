@@ -34,12 +34,12 @@ def register(request):
         # Create a session
         request.session['user_id'] = new_user.id
         if new_user.role=='employee':
-            redirect_url = f'/user/{new_user.id}/events_list'
+            redirect_url = f'/user/{new_user.id}/my_dashboard'
             return redirect(redirect_url)
         if new_user.role=='head':
             redirect_url = f'/head/events_list'
             return redirect(redirect_url)
-    return redirect('/head/events_list')
+    return redirect('/')
 
 
 def login(request):
@@ -59,10 +59,10 @@ def login(request):
             request.session['user_id'] = user.id
 
             # Construct the redirect URL based on the user's role
-            if log_role == 'employee':
-                redirect_url = f'/user/{user.id}/my_dashboard'
-            elif log_role == 'head':
-                redirect_url = f'/head/admin_dashboard'
+            # if log_role == 'employee':
+            #     redirect_url = f'/{user.id}/my_dashboard'
+            # elif log_role == 'head':
+            redirect_url = f'/{user.id}/dashboard'
 
             return redirect(redirect_url)
 
@@ -80,12 +80,41 @@ def my_dashboard_user(request, user_id):
     # from session or any other source
     return render(request, 'user_dashboard.html', {'user_id': user_id})
 
-def admin_dashboard(request):
+def admin_dashboard(request, user_id):
     # Assuming user_id is obtained from the session
     # If not, you need to handle the logic to retrieve user_id
     # from session or any other source
-    return render(request, 'admin_dashboard.html')
+    return render(request, 'admin_dashboard.html', {'user_id': user_id})
 
 def logout(request):
     request.session.flush()
     return redirect('/')
+
+def learning_labs(request, user_id):
+        # return redirect('events_list')
+    return render(request, 'learning_labs.html', {'user_id': user_id})
+
+def tasks(request, user_id):
+    task = get_object_or_404(Task, pk=user_id)
+
+    if request.method == 'POST':
+        task.name = request.POST.get('name')
+        task.description = request.POST.get('description')
+        task.save()
+
+        return redirect(f'/{user_id}/dashboard')
+
+    return render(request, 'tasks.html', {'user_id': user_id})
+
+def create_task(request, user_id):
+    if request.method == 'POST':
+        name = request.POST['name']
+        description = request.POST['description']
+        image = request.FILES.get('image')  # Get the uploaded image file
+
+        # Create event and event dates
+        event = Task.objects.create(name=name, description=description, image=image)
+
+        return redirect(f'/{user_id}/dashboard')
+
+    return render(request, 'create_task.html', {'user_id': user_id})
