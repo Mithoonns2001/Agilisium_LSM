@@ -82,4 +82,5 @@ class User(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to='event_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='task_images/', blank=True, null=True)
+

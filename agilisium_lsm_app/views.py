@@ -95,16 +95,9 @@ def learning_labs(request, user_id):
     return render(request, 'learning_labs.html', {'user_id': user_id})
 
 def tasks(request, user_id):
-    task = get_object_or_404(Task, pk=user_id)
+    tasks = Task.objects.all()
 
-    if request.method == 'POST':
-        task.name = request.POST.get('name')
-        task.description = request.POST.get('description')
-        task.save()
-
-        return redirect(f'/{user_id}/dashboard')
-
-    return render(request, 'tasks.html', {'user_id': user_id})
+    return render(request, 'tasks.html', { 'tasks':tasks, 'user_id': user_id})
 
 def create_task(request, user_id):
     if request.method == 'POST':
@@ -113,8 +106,26 @@ def create_task(request, user_id):
         image = request.FILES.get('image')  # Get the uploaded image file
 
         # Create event and event dates
-        event = Task.objects.create(name=name, description=description, image=image)
+        task = Task.objects.create(name=name, description=description, image=image)
 
-        return redirect(f'/{user_id}/dashboard')
+        return redirect(f'/{user_id}/tasks')
 
     return render(request, 'create_task.html', {'user_id': user_id})
+
+def open_task(request, user_id):
+    if request.method == 'POST':
+        name = request.POST['name']
+        description = request.POST['description']
+        image = request.FILES.get('image')  # Get the uploaded image file
+
+        # Create event and event dates
+        task = Task.objects.create(name=name, description=description, image=image)
+
+
+    return render(request, 'open_task.html', {'task':task, 'user_id': user_id})
+
+def open_task(request, user_id, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    return render(request, 'open_task.html', {'task':task, 'user_id': user_id})
+
+

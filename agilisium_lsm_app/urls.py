@@ -11,8 +11,10 @@ urlpatterns = [
     path('<int:user_id>/dashboard', views.admin_dashboard, name='admin_dashboard'),
     path('<int:user_id>/learning_labs', views.learning_labs, name='learning_labs'),
     path('<int:user_id>/tasks', views.tasks, name='tasks'),
+    path('<int:user_id>/open_task/', views.open_task, name='open_task'),
+
     path('<int:user_id>/create_task/', views.create_task, name='create_task'),
 
     path('logout', views.logout, name='logout'),
 
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

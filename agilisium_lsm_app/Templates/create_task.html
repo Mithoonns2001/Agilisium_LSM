@@ -71,14 +71,46 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .logout-btn {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #b30000;
+        }
+        .back-btn {
+            background-color: #a08606;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .back-btn:hover {
+            background-color: #b30000;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <a href="{% url '' %}" class="back-link">Back to Tasks List</a>
+        <button class="back-btn" onclick="location.href='{% url 'tasks' user_id %}'">Back</button>
 
-        <h1>Schedule Event</h1>
+        <button class="logout-btn" onclick="location.href='{% url 'logout' %}'">Logout</button>
+
+        <h1>Create Task</h1>
         <form method="post"  enctype="multipart/form-data">
             {% csrf_token %}
             <label for="name">Task Name:</label>
@@ -90,6 +122,7 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+
 
 </body>
 </html>

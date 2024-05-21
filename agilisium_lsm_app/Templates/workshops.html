@@ -176,18 +176,17 @@
         <button class="schedule-btn" onclick="location.href='{% url 'create_task' user_id %}'" >create task </button>
 
         <div class="task-grid">
-            {% for task in tasks %}
-          
+            {% for tasks in task %}
             <div class="task-item">
-                {% if task.image %}
-                <img src="{{ task.image.url }}" alt="{{ task.name }}" class="task-image" >
+                {% if tasks.image %}
+                <img src="{{ tasks.image.url }}" alt="{{ tasks.name }}" class="task-image" >
                 {% else %}
                 <img src="https://whoamama.com/wp-content/uploads/2020/05/Agilisium_1-scaled.jpg" alt="No Image Available" class="task-image">
                 {% endif %}
-                <div class="task-description" onclick="location.href='{% url 'open_task' user_id task.id %}'">
-                    <p>{{ task.description }}</p>
+                <div class="task-description" onclick="location.href='{% url 'create_task' tasks.id %}'">
+                    <p>{{ tasks.description }}</p>
                 </div>
-                <p class="task-name">{{ task.name }}</p>
+                <p class="task-name">{{ tasks.name }}</p>
              </div>
             {% endfor %}
         </div>
