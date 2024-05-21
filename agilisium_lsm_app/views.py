@@ -25,6 +25,7 @@ def register(request):
             first_name=request.POST['first_name'],
             last_name=request.POST['last_name'],
             emp_id=request.POST['emp_id'],
+            batch=request.POST['batch'],
             email=request.POST['email'],
             password=hashed_pw,
             role=request.POST['role'],
@@ -32,13 +33,16 @@ def register(request):
 
         )
         # Create a session
-        request.session['user_id'] = new_user.id
-        if new_user.role=='employee':
-            redirect_url = f'/user/{new_user.id}/my_dashboard'
-            return redirect(redirect_url)
-        if new_user.role=='head':
-            redirect_url = f'/head/events_list'
-            return redirect(redirect_url)
+        # request.session['user_id'] = new_user.id
+        # if new_user.role=='employee':
+        #     redirect_url = f'/user/{new_user.id}/my_dashboard'
+        #     return redirect(redirect_url)
+        # if new_user.role=='head':
+        #     redirect_url = f'/head/events_list'
+        #     return redirect(redirect_url)
+        redirect_url = f'/{new_user.id}/dashboard'
+
+        return redirect(redirect_url)
     return redirect('/')
 
 
@@ -96,8 +100,8 @@ def learning_labs(request, user_id):
 
 def tasks(request, user_id):
     tasks = Task.objects.all()
-
-    return render(request, 'tasks.html', { 'tasks':tasks, 'user_id': user_id})
+    user = User.objects.get(pk=user_id)
+    return render(request, 'tasks.html', { 'tasks':tasks, 'user_id': user_id, 'user': user})
 
 def create_task(request, user_id):
     if request.method == 'POST':
@@ -112,20 +116,10 @@ def create_task(request, user_id):
 
     return render(request, 'create_task.html', {'user_id': user_id})
 
-def open_task(request, user_id):
-    if request.method == 'POST':
-        name = request.POST['name']
-        description = request.POST['description']
-        image = request.FILES.get('image')  # Get the uploaded image file
-
-        # Create event and event dates
-        task = Task.objects.create(name=name, description=description, image=image)
-
-
-    return render(request, 'open_task.html', {'task':task, 'user_id': user_id})
-
 def open_task(request, user_id, task_id):
+    users = User.objects.all()
+
     task = get_object_or_404(Task, pk=task_id)
-    return render(request, 'open_task.html', {'task':task, 'user_id': user_id})
+    return render(request, 'open_task.html', {'task':task, 'user_id': user_id, 'users':users})
 
 

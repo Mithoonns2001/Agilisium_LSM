@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote Date</title>
+    <title>Task Management</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             background-color: #f2f2f2;
         }
         .container {
-            max-width: 600px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -23,19 +23,22 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        form {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-bottom: 20px;
         }
-        label {
-            font-weight: bold;
-        }
-        select {
-            width: 100%;
+        th, td {
             padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        input[type="file"] {
+            display: block;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
         }
         input[type="submit"] {
             padding: 10px 20px;
@@ -49,29 +52,60 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
-        .event-info {
-            margin-bottom: 20px;
-        }
-        .event-info label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .event-info p {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
     <div class="container">
+        <button class="back-btn" onclick="location.href='{% url 'tasks' user_id %}'">Back</button>
 
-        <h1>Vote for Date</h1>
+        <button class="logout-btn" onclick="location.href='{% url 'logout' %}'">Logout</button>
+
+        <h1>Task Details</h1>
         <div class="event-info">
-            <label for="event_name">Event Name:</label>
+            <label for="event_name"><strong>Event Name:</strong></label>
             <p>{{ task.name }}</p>
-            <label for="event_description">Event Description:</label>
+            <label for="event_description"><strong>Event Description:</strong></label>
             <p>{{ task.description }}</p>
         </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Download File</th>
+                    <th>Upload File</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                {% if user.role == 'employee' %}
+                <tr>
+                    <td>{{ user.first_name }}</td>
+                    <td>
+                        {% if user.file %}
+                        <a href="{% url 'download_file' task.id %}">Download {{ task.file.name }}</a>
+                        {% else %}
+                        No file uploaded
+                        {% endif %}
+                    </td>
+                    {% if user.role == 'employee' %}
 
+                    <td>
+                        {% if user.id == user_id %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="task_id" value="{{ task.id }}">
+                            <input type="file" name="file">
+                            <input type="submit" value="Upload">
+                        </form>
+                        {% endif %}
+                    </td>
+                    {% endif %}
+
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

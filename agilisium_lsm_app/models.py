@@ -48,6 +48,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=255)
     emp_id = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
+    batch = models.CharField(max_length=255)
 
     password = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)

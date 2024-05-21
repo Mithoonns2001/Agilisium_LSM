@@ -172,9 +172,13 @@
         <button class="logout-btn" onclick="location.href='{% url 'logout' %}'">Logout</button>
 
         <h1>tasks</h1>
-        <h2>Admin Dashboard</h2>
-        <button class="schedule-btn" onclick="location.href='{% url 'create_task' user_id %}'" >create task </button>
+        {% if user %}
+        {% if user.role == 'head' %}
+    
 
+        <button class="schedule-btn" onclick="location.href='{% url 'create_task' user_id %}'" >create task </button>
+        {% endif %}
+        {% endif %}
         <div class="task-grid">
             {% for task in tasks %}
           
