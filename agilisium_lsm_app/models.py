@@ -85,3 +85,10 @@ class Task(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='task_images/', blank=True, null=True)
 
+class Material(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    material = models.FileField(upload_to='materials/', blank=True, null=True)
+
+class Deliverables(models.Model):
+    name = models.CharField(max_length=100)

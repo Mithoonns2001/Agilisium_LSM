@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agilisium LMS</title>
+    <title>Graduation Labs</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,10 +24,10 @@
             color: #6ea9e8;
         }
         .container {
-            max-width: 1300px;
+            max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #ffffff61;
+            background-color: #a4a7e0;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             
@@ -38,10 +38,8 @@
         }
         .event-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             grid-gap: 30px;
-            background-color: #ffffffd6;
-
             justify-content: center;
         }
         .event-item {
@@ -125,9 +123,24 @@
             transition: background-color 0.3s ease;
             position: absolute;
             top: 20px;
-            left: 20px;
+            right: 20px;
         }
         .logout-btn:hover {
+            background-color: #b30000;
+        }
+        .back-btn {
+            background-color: #a08606;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .back-btn:hover {
             background-color: #b30000;
         }
         .schedule-btn {
@@ -148,40 +161,32 @@
     </style>
 </head>
 <body>
-    <h3 style="color: #007bff; text-align: center;">WELCOME {{ user.first_name }} {{ user.last_name }}!</h3>
-
     <div class="container">
+        <button class="back-btn" onclick="location.href='{% url 'admin_dashboard' user_id %}'">Back</button>
+
         <button class="logout-btn" onclick="location.href='{% url 'logout' %}'">Logout</button>
 
-        <h1>AGILISIUM LMS</h1>
+        <h1>GRADUATION LABS</h1>
 
         <div class="event-grid">
-            <div class="event-item" >
+            <div class="event-item" style="background: #3976ef;">
 
-                <img src="https://th.bing.com/th/id/OIP.P_PslF1ESja16uhl0uir6QHaE0?w=301&h=195&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="No Image Available" class="event-image">
+                <img src="https://th.bing.com/th/id/OIP.Edn4B48r6oH1XS3so1YI8gHaE8?w=259&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="No Image Available" class="event-image">
 
-                <div class="event-description" onclick="location.href='{% url 'learning_labs' user_id %}'">
+                <div class="event-description" onclick="location.href='{% url 'deliverables' user_id %}' ">
 
                 </div>
-                <p class="event-name">Learning Labs</p>
+                <p class="event-name">Deliverables</p>
              </div>
-             <div class="event-item" >
+            
+             <div class="event-item" style="background: #3976ef;">
 
-                <img src="https://th.bing.com/th/id/OIP.c0pPPOF_mEOK0IrAXGCETgHaEK?w=260&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="No Image Available" class="event-image">
+                <img src="https://th.bing.com/th/id/OIP.DNoZjRP_61DfqrHMvHHIWAAAAA?rs=1&pid=ImgDetMain" alt="No Image Available" class="event-image">
 
-                <div class="event-description" onclick="location.href='{% url 'graduation_labs' user_id %}'">
-
-                </div>
-                <p class="event-name">Graduation Labs</p>
-             </div>
-             <div class="event-item" >
-
-                <img src="https://th.bing.com/th/id/OIP.54-PG4hFEUKZnJX8flm9ZQHaE7?w=242&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="No Image Available" class="event-image">
-
-                <div class="event-description" onclick="location.href='{% url 'ChatView'  %}'">
+                <div class="event-description" onclick="location.href='https://msvlforagileiss.sharepoint.com/sites/FullStackDataScienceProfessionalLabs?xsdata=MDV8MDF8fGI3ZGY4MWJmMThhMDRlMWM1N2E2MDhkYjE1NzI3OTFifGI4ODY5NzkyZWU0NDRhMDVhNGZiYjYzMjNhMzRjYTM1fDB8MHw2MzgxMjczNTM2MDUzNDcyMzh8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazkwYUdWeUlpd2lWMVFpT2pFeGZRPT18MXxNVFkzTnpFek9EVTFPVGM0TVRzeE5qYzNNVE00TlRVNU56Z3hPekU1T2poNlVWbERPRkY1V1dsSVNtbGZaMFpqVldGa1pHRXliR04xZGpJMmRsVnRORjh0UlZkM05rczVlRGd4UUhSb2NtVmhaQzUwWVdOMk1nPT18YTcyYmRlYTFmZmZiNDVkZTU3YTYwOGRiMTU3Mjc5MWJ8YmRlMTAzN2FlOWMyNGQxYzkwZTcxYzljMTM4NWUxZDY%3D&sdata=RzlxbjEweGV6cnBRcmswK0pKV2NVS1k5bUpvekRjQmwrZW90S0RNZkoxRT0%3D&OR=Teams-HL&CT=1716291961738&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDA0MTEyMjMxNSJ9&SafelinksUrl=https%3A%2F%2Fmsvlforagileiss.sharepoint.com%2Fsites%2FFullStackDataScienceProfessionalLabs'">
 
                 </div>
-                <p class="event-name">Chat with GPT</p>
+                <p class="event-name">Full Stack Data Science Professional Labs</p>
              </div>
         </div>
     </div>

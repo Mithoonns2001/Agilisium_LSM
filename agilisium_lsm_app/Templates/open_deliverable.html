@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management</title>
+    <title>Deliverables</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,16 +56,14 @@
 </head>
 <body>
     <div class="container">
-        <button class="back-btn" onclick="location.href='{% url 'tasks' user_id %}'">Back</button>
+        <button class="back-btn" onclick="location.href='{% url 'deliverables' user_id %}'">Back</button>
 
         <button class="logout-btn" onclick="location.href='{% url 'logout' %}'">Logout</button>
 
-        <h1>Task Details</h1>
+        <h1>Deliverable</h1>
         <div class="event-info">
-            <label for="event_name"><strong>Task Name:</strong></label>
-            <p>{{ task.name }}</p>
-            <label for="event_description"><strong>Task Description:</strong></label>
-            <p>{{ task.description }}</p>
+            <label for="event_name"><strong>Deliverable Name:</strong></label>
+            <p>{{ deliverable.name }}</p>
         </div>
         <table>
             <thead>

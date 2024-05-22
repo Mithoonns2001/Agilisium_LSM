@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create task</title>
+    <title>create deliverables</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         body {
@@ -106,19 +106,15 @@
 <body>
 
     <div class="container">
-        <button class="back-btn" onclick="location.href='{% url 'tasks' user_id %}'">Back</button>
+        <button class="back-btn" onclick="location.href='{% url 'deliverables' user_id %}'">Back</button>
 
         <button class="logout-btn" onclick="location.href='{% url 'logout' %}'">Logout</button>
 
-        <h1>Create Task</h1>
+        <h1>Create Deliverables</h1>
         <form method="post"  enctype="multipart/form-data">
             {% csrf_token %}
-            <label for="name">Task Name:</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name">
-            <label for="description">Task Description:</label>
-            <textarea id="description" name="description" rows="4"></textarea>
-            <label for="image">Task Image:</label>
-            <input type="file" id="image" name="image">
             <input type="submit" value="Submit">
         </form>
     </div>

@@ -1,0 +1,79 @@
+<!-- chatbot/templates/chatbot/chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Agilisium GPT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .chat-entry {
+            margin-bottom: 10px;
+        }
+        .chat-entry span {
+            font-weight: bold;
+        }
+        .input-form {
+            display: flex;
+        }
+        .input-form input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+        .input-form input[type="submit"] {
+            padding: 10px 20px;
+            border: 1px solid #007bff;
+            border-radius: 0 5px 5px 0;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        .input-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat with GPT</h1>
+        <div class="chat-box">
+            {% for role, text in chat_history %}
+            <div class="chat-entry">
+                <span>{{ role }}:</span> {{ text }}
+            </div>
+            {% endfor %}
+        </div>
+        <form method="post" class="input-form">
+            {% csrf_token %}
+            <input type="text" name="input" placeholder="Type your question...">
+            <input type="submit" value="Ask">
+        </form>
+    </div>
+</body>
+</html>
